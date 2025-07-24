@@ -21,6 +21,12 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 	if duration <= 0 {
 		return 0, errors.New("incorrect number of duration")
 	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect number of weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect number of height")
+	}
 	//Рассчитываем и возвращаем количество калорий
 	calor := ((MeanSpeed(steps, height, duration) * duration.Minutes() * weight) / minInH) * walkingCaloriesCoefficient
 	return calor, nil
@@ -33,6 +39,12 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	}
 	if duration <= 0 {
 		return 0, errors.New("incorrect number of duration")
+	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect number of weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect number of height")
 	}
 	//Рассчитываем и возвращаем количество калорий
 	calor := (MeanSpeed(steps, height, duration) * duration.Minutes() * weight) / minInH

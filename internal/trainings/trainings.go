@@ -30,13 +30,20 @@ func (t *Training) Parse(datastring string) (err error) {
 	if err != nil {
 		return err
 	}
+	if st <= 0 {
+		return errors.New("incorrect number of steps")
+	}
 	t.Steps = st
 
 	dur, err := time.ParseDuration(slice[2])
 	if err != nil {
 		return err
 	}
+	if dur <= 0 {
+		return errors.New("incorrect number of duration")
+	}
 	t.Duration = dur
+
 	//Сохраняем значение типа тренировки в поле TrainingType
 	t.TrainingType = slice[1]
 

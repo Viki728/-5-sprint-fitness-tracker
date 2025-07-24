@@ -34,6 +34,10 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	if err != nil {
 		return err
 	}
+
+	if dur <= 0 {
+		return errors.New("negative duration")
+	}
 	//Присваиваем полям структуры DaySteps полученные значения
 	ds.Steps = st
 	ds.Duration = dur
@@ -49,5 +53,5 @@ func (ds DaySteps) ActionInfo() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f.\n", ds.Steps, dist, cal), nil
+	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", ds.Steps, dist, cal), nil
 }
