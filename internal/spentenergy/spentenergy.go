@@ -1,6 +1,7 @@
 package spentenergy
 
 import (
+	"errors"
 	"time"
 )
 
@@ -13,17 +14,58 @@ const (
 )
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	//Проверка входных параметров
+	if steps <= 0 {
+		return 0, errors.New("incorrect number of steps")
+	}
+	if duration <= 0 {
+		return 0, errors.New("incorrect number of duration")
+	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect number of weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect number of height")
+	}
+	//Рассчитываем и возвращаем количество калорий
+	calor := ((MeanSpeed(steps, height, duration) * duration.Minutes() * weight) / minInH) * walkingCaloriesCoefficient
+	return calor, nil
 }
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	//Проверка входных параметров
+	if steps <= 0 {
+		return 0, errors.New("incorrect number of steps")
+	}
+	if duration <= 0 {
+		return 0, errors.New("incorrect number of duration")
+	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect number of weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect number of height")
+	}
+	//Рассчитываем и возвращаем количество калорий
+	calor := (MeanSpeed(steps, height, duration) * duration.Minutes() * weight) / minInH
+	return calor, nil
 }
 
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
-	// TODO: реализовать функцию
+	// Проверка отрицательных значений (шагов и продолжительности)
+	if steps <= 0 {
+		return 0
+	}
+	if duration <= 0 {
+		return 0
+	}
+	//Вычисляем и возвращаем среднюю скорость
+	v := Distance(steps, height) / (duration.Hours())
+	return v
 }
 
 func Distance(steps int, height float64) float64 {
-	// TODO: реализовать функцию
+	//Вычисляем дистанцию в км
+	lenStep := ((height * stepLengthCoefficient) * float64(steps)) / float64(mInKm)
+	return lenStep
 }
