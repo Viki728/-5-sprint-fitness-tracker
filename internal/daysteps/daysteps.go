@@ -30,6 +30,9 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	if err != nil {
 		return err
 	}
+	if st <= 0 {
+		return errors.New("negative steps")
+	}
 	dur, err := time.ParseDuration(sl[1])
 	if err != nil {
 		return err
